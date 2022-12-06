@@ -20,7 +20,7 @@ const Container = styled.div`
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+    url("https://firebasestorage.googleapis.com/v0/b/ecommerce-clientside-6ebf6.appspot.com/o/background%20gucci.jpg?alt=media&token=9f3a3cdc-62f1-4356-aa53-61b655125e7d")
       center;
   background-size: cover;
   display: flex;
@@ -124,19 +124,18 @@ const Signup = () => {
         return;
       }
       try {
-        await axios
-          .post(`/api/auth/register`, {
-            name: name,
-            email: email,
-            password: password,
-            phone: phone,
-            city: city,
-            pic: pic,
-          })
-          .then(() => {
-            toast.success("Registration Successful! Please check your email");
-            navigate("/login");
-          });
+        const credentials = {
+          name: name,
+          email: email,
+          password: password,
+          phone: phone,
+          city: city,
+          pic: pic,
+        };
+        await axios.post(`/api/auth/register`, credentials).then(() => {
+          toast.success("Registration Successful! Please check your email");
+          navigate("/login");
+        });
       } catch (error) {
         toast.error(`Error Occured ${error}`);
       }
@@ -179,7 +178,12 @@ const Signup = () => {
               isRequired
             />
             <div
-              style={{ height: "fit-content", marginTop: "25px" }}
+              style={{
+                height: "fit-content",
+                marginTop: "25px",
+                marginLeft: 0,
+                padding: 0,
+              }}
               onClick={(e) => {
                 setShow(!show);
                 e.preventDefault();
@@ -199,7 +203,12 @@ const Signup = () => {
               isRequired
             />
             <div
-              style={{ height: "fit-content", marginTop: "25px" }}
+              style={{
+                height: "fit-content",
+                marginTop: "25px",
+                marginLeft: "0px",
+                padding: 0,
+              }}
               onClick={(e) => {
                 setShow(!show);
                 e.preventDefault();

@@ -16,15 +16,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url("https://firebasestorage.googleapis.com/v0/b/ecommerce-clientside-6ebf6.appspot.com/o/cover.png?alt=media&token=8335a579-3d32-4981-9562-b6362426e422?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+    url("https://firebasestorage.googleapis.com/v0/b/ecommerce-clientside-6ebf6.appspot.com/o/background%20gucci.jpg?alt=media&token=9f3a3cdc-62f1-4356-aa53-61b655125e7d")
       center;
-  background-size: cover;
+  object-fit: cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,12 +87,13 @@ const Login = () => {
   const handleClick = async () => {
     dispatch(loginStart());
     try {
+      const credentials = { email: email, password: password };
       await axios
-        .post(`/api/auth/login`, { email, password })
+        .post(`/api/auth/login`, credentials)
         .then((res) => {
           dispatch(loginSuccess(res.data));
           toast.success("login successful");
-          navigate("/shop");
+          navigate("/cart");
         })
         .catch((err) => {
           toast.error(err);

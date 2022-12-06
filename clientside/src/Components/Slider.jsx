@@ -13,7 +13,7 @@ const Container = styled.div`
   overflow: hidden;
   ${mobile({
     width: "100%",
-    height: "65vh",
+    height: "55vh",
     display: "flex",
     position: "relative",
     overflow: "hidden",
@@ -76,7 +76,13 @@ const InfoContainer = styled.div`
   background-color: black;
   opacity: 0.6;
   border-radius: 0 70% 60% 0;
-  ${mobile({ width: "28%", height: "100%", margin: 0, borderRadius: 0 })}
+  ${mobile({
+    width: "28%",
+    height: "100%",
+    margin: 0,
+    borderRadius: 0,
+    padding: "20px",
+  })}
 `;
 
 const Title = styled.h1`
