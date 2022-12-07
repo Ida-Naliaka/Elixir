@@ -40,6 +40,7 @@ const registerUser = expressAsyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please fill in all the Fields");
   }
+
   const characters =
     "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   let confirmationCode = "";
@@ -86,12 +87,71 @@ const registerUser = expressAsyncHandler(async (req, res) => {
         console.log("Email sent successfully");
       }
     });
-    res.redirect("/login");
   } else {
     throw new Error("Failed to create user");
   }
 });
+const recoverUserEmail = expressAsyncHandler(async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    res.status(400);
+    throw new Error("Please Enter Your Email");
+  } else {
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      let mailOptions = {
+        from: process.env.MAIL_USERNAME,
+        to: userExists.email,
+        subject: "Reset Your Password",
+        html: `<h1>Account Recovery</h1>
+        <h2>Hello ${userExists.name}</h2>
+        <p> Please Reset your Password by clicking on the following link</p>
+        <a href=https://elixir.cyclic.app/auth/reset/${userExists._id}> Click here</a>
+        </div>`,
+      };
+      transporter.sendMail(mailOptions, function (err, data) {
+        if (err) {
+          console.log("Error " + err);
+        } else {
+          console.log("Recovery Email sent successfully");
+        }
+      });
+    } else {
+      res.status(400);
+      throw new Error("Email not Found. Please create an account");
+    }
+  }
+});
+const resetPassword = expressAsyncHandler(async (req, res) => {
+  const { email, password, phone, city } = req.body;
 
+  if (!email || !password || !phone || !city) {
+    res.status(400);
+    throw new Error("Please fill in all the Fields");
+  }
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    await User.findByIdAndUpdate(
+      userExists._id,
+      {
+        email: email.toLowerCase(),
+        password: bcrypt.hashSync(password, 8),
+        phone,
+        city,
+      },
+      { new: true }
+    )
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        res.status(400);
+        console.log(err);
+      });
+  } else {
+    throw new Error("User not found");
+  }
+});
 const verifyUser = expressAsyncHandler(async (req, res) => {
   User.findOne({ confirmationCode: req.params.confirmationCode })
     .then((user) => {
@@ -256,5 +316,6 @@ module.exports = {
   registerAdmin,
   verifyAdmin,
   LoginAdmin,
-  userArr,
+  resetPassword,
+  recoverUserEmail,
 };

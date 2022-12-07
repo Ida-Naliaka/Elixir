@@ -97,7 +97,8 @@ const Section = styled.div`
   align-items: center;
   font-family: "Bitter", serif;
   font-weight: 300;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 4px;
+  ${mobile({ width: "80%", height: "200px" })}
 `;
 const AboutTitle = styled.h4`
   font-family: "Dancing Script", cursive;

@@ -10,6 +10,7 @@ import Signup from "./Pages/Signup";
 import AllProducts from "./Pages/AllProducts";
 import LandingPage from "./Pages/LandingPage";
 import WelcomePage from "./Pages/WelcomePage";
+import Reset from "./Pages/ResetPassword";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -38,6 +39,7 @@ function App() {
           element={user ? <Navigate to="/" /> : <Signup />}
         />
         <Route path="/auth/:confirmationCode" element={<WelcomePage />} exact />
+        <Route path="/auth/reset/:_id" element={<Reset />} exact />
       </Routes>
     </div>
   );

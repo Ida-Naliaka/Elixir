@@ -48,24 +48,24 @@ export const blogs = [
     id: 1,
     title: "Top 3 Elegant Summer Fragrances",
     date: "June 8th, 2022",
-    link: "https://pafory.com/inspiration/blog/5-elegant-late-summer-fragrances",
+    link: "https://scentgrail.com/perfume-lists/best-summer-perfumes-for-women/",
     thumbnail:
-      "https://pafory.com/_next/image?url=https%3A%2F%2Fpafory.com%2Fwp-content%2Fuploads%2F2020%2F09%2FDesign-ohne-Titel-1-768x448.jpg&w=640&q=75",
+      "https://firebasestorage.googleapis.com/v0/b/ecommerce-clientside-6ebf6.appspot.com/o/summer.jpg?alt=media&token=cd12d1c7-7217-46ac-8154-80f435d4780c",
   },
   {
     id: 2,
     title: "Scent of the month (Men)",
     date: "December 14th, 2022",
-    link: "https://pafory.com/inspiration/blog/scent-of-the-month-august-2020-men",
+    link: "https://www.ceo-middleeast.com/ceo/leisure/396980-scent-of-the-month-hugo-boss",
     thumbnail:
-      "https://pafory.com/_next/image?url=https%3A%2F%2Fpafory.com%2Fwp-content%2Fuploads%2F2018%2F12%2FBildschirmfoto-2022-08-31-um-13.44.39.png&w=1920&q=75",
+      "https://firebasestorage.googleapis.com/v0/b/ecommerce-clientside-6ebf6.appspot.com/o/men%20scent.webp?alt=media&token=94ee71d8-f0ab-4a34-919d-8acc128ec3dd",
   },
   {
     id: 3,
     title: "Scent of the month (Women)",
     date: "December 15th, 2022",
-    link: "https://pafory.com/inspiration/blog/fragrance-of-the-month-august-2020-women",
+    link: "https://edition.cnn.com/cnn-underscored/beauty/best-perfume-for-women",
     thumbnail:
-      "https://pafory.com/_next/image?url=https%3A%2F%2Fpafory.com%2Fwp-content%2Fuploads%2F2019%2F04%2Fchelsea-audibert-lDEW4qMiizc-unsplash-4-768x512.jpg&w=640&q=75",
+      "https://firebasestorage.googleapis.com/v0/b/ecommerce-clientside-6ebf6.appspot.com/o/women%20scent.jpg?alt=media&token=7b02cb0a-4fa2-4dcc-84af-d28a8dfcf0b5",
   },
 ];

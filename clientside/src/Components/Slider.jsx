@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { sliderItems } from "../data";
 import { mobile } from "../responsive";
-
+import { useNavigate } from "react-router-dom";
 const Container = styled.div`
   width: 100%;
   height: 80vh;
@@ -13,7 +13,8 @@ const Container = styled.div`
   overflow: hidden;
   ${mobile({
     width: "100%",
-    height: "55vh",
+    height: "60vh",
+    boxSizing: "border-box",
     display: "flex",
     position: "relative",
     overflow: "hidden",
@@ -64,7 +65,7 @@ const Image = styled.img`
 `;
 
 const InfoContainer = styled.div`
-  padding: 20px 0;
+  padding: "10% 0 10% 0";
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,11 +78,11 @@ const InfoContainer = styled.div`
   opacity: 0.6;
   border-radius: 0 70% 60% 0;
   ${mobile({
-    width: "28%",
+    width: "30%",
     height: "100%",
     margin: 0,
     borderRadius: 0,
-    padding: "20px",
+    padding: "50px 0",
   })}
 `;
 
@@ -97,7 +98,8 @@ const Desc = styled.p`
   font-weight: 500;
   letter-spacing: 3px;
   text-align: center;
-  ${mobile({ marginRight: "5px", fontSize: "18px", letterSpacing: "2px" })};
+  padding: 5px;
+  ${mobile({ marginTop: "0px", fontSize: "18px", letterSpacing: "2px" })};
 `;
 
 const Button = styled.button`
@@ -107,10 +109,12 @@ const Button = styled.button`
   border: white;
   background-color: white;
   cursor: pointer;
+  ${mobile({ fontSize: "15px" })};
 `;
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
+  const navigate = useNavigate();
   const handleClick = (direction) => {
     if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
@@ -138,7 +142,7 @@ const Slider = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>SHOW NOW</Button>
+              <Button onClick={() => navigate("/shop")}>SHOW NOW</Button>
             </InfoContainer>
           </Slide>
         ))}

@@ -73,8 +73,10 @@ const Error = styled.span`
 `;
 const Login = () => {
   const [email, setEmail] = useState("");
+  const [recoveryemail, setRecoveryEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
+  const [forgot, setForgot] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -102,6 +104,21 @@ const Login = () => {
       dispatch(loginFailure());
     }
   };
+  const handleRecover = async () => {
+    try {
+      const credentials = { email: recoveryemail };
+      await axios
+        .post(`/api/auth/recover`, credentials)
+        .then((res) => {
+          toast.success("Check your email");
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
+    } catch (error) {
+      toast.error("error occured");
+    }
+  };
 
   return (
     <Container>
@@ -109,32 +126,55 @@ const Login = () => {
         <Title>SIGN IN</Title>
         <Form>
           <Input
-            placeholder="email"
+            placeholder="Email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <div style={{ display: "flex" }}>
             <Input
-              placeholder="password"
+              placeholder="Password"
               type={show ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              style={{ textAlign: "center" }}
             />
             <div
               style={{
                 height: "fit-content",
-                marginTop: "15px",
                 color: "inherit",
+                marginTop: "10px",
+                padding: "10px",
+                position: "absolute",
               }}
               onClick={(e) => {
                 setShow(!show);
                 e.preventDefault();
               }}
             >
-              <VisibilityOutlined />
+              <VisibilityOutlined style={{ fontSize: "20px", color: "gray" }} />
             </div>
           </div>
+          {forgot && (
+            <>
+              <label style={{ color: "red" }}>Recover your Account</label>
+              <Input
+                placeholder="Enter Email Address"
+                type="email"
+                value={recoveryemail}
+                onChange={(e) => setRecoveryEmail(e.target.value)}
+              />
+              <Button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleRecover();
+                }}
+                style={{ background: "black" }}
+              >
+                Submit
+              </Button>
+            </>
+          )}
           <Button
             onClick={(e) => {
               e.preventDefault();
@@ -145,7 +185,9 @@ const Login = () => {
             LOGIN
           </Button>
           {error && <Error>Something went wrong...</Error>}
-          <Link>Don't remember your Password?</Link>
+          <div onClick={() => setForgot(true)} style={{ cursor: "pointer" }}>
+            <u>Don't remember your Password?</u>
+          </div>
           <Link
             to="/signup"
             style={{

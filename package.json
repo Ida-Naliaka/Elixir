@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node backend/index.js"
+    "start": "node backend/index.js",
+    "server":"nodemon backend/index.js --ignore client"
   },
   "author": "Ida Wafula",
   "license": "ISC",
