@@ -197,7 +197,7 @@ const LandingPage = () => {
         <h1 style={{ fontFamily: "'Satisfy', cursive" }}>Our Blogs</h1>
         <BlogContainer>
           {blogItem.map((item) => (
-            <Blog item={item} key={item._id} />
+            <Blog item={item} key={item.id} />
           ))}
         </BlogContainer>
         <AboutSection>

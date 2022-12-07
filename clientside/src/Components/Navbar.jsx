@@ -87,13 +87,11 @@ const SpanContainer = styled.span`
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
   const handleLogOut = () => {
     dispatch(logout());
-    navigate("/login");
+    navigate("/");
   };
   const handleDelete = async () => {
     const config = {
@@ -110,28 +108,7 @@ const Navbar = () => {
         toast.error(error);
       });
   };
-  const handleSearch = async () => {
-    if (!search) {
-      toast.warning("Enter Search Item");
-    }
 
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-      const res = await axios.get(
-        `/api/products/newOrder?search=${search}`,
-        config
-      );
-      res.data.length > 0
-        ? setSearchResult(res.data)
-        : toast.warning("No results found");
-    } catch (error) {
-      toast.error("Failed to Load the Search Results");
-    }
-  };
   return (
     <Container>
       <Wrapper>

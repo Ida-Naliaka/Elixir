@@ -1,14 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.b3eeeea7.css",
-    "main.js": "/static/js/main.3225005d.js",
-    "static/media/ResetPassword": "/static/media/ResetPassword.91f4d96780da79293690",
+    "main.js": "/static/js/main.c96d115e.js",
     "index.html": "/index.html",
     "main.b3eeeea7.css.map": "/static/css/main.b3eeeea7.css.map",
-    "main.3225005d.js.map": "/static/js/main.3225005d.js.map"
+    "main.c96d115e.js.map": "/static/js/main.c96d115e.js.map"
   },
   "entrypoints": [
     "static/css/main.b3eeeea7.css",
-    "static/js/main.3225005d.js"
+    "static/js/main.c96d115e.js"
   ]
 }

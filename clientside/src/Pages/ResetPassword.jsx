@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { app } from "../firebase";
-import {
-  uploadBytesResumable,
-  ref,
-  getStorage,
-  getDownloadURL,
-} from "firebase/storage";
+import { useNavigate } from "react-router-dom";
 import { VisibilityOutlined } from "@material-ui/icons";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -52,15 +45,11 @@ const Input = styled.input`
   padding: 10px;
 `;
 
-const Agreement = styled.span`
-  font-size: 12px;
-  margin: 20px 0px;
-`;
-
 const Button = styled.button`
   width: 40%;
   border: none;
-  padding: 15px 20px;
+  padding: 10px 10px;
+  margin-top: 10px;
   background-color: teal;
   color: white;
   cursor: pointer;
@@ -93,7 +82,8 @@ const Reset = () => {
           city: city,
         };
         await axios.post(`/api/auth/resetPassword`, credentials).then((res) => {
-          toast.success("Account Recovery Successful! Please Log in");
+          if (res.data)
+            toast.success("Account Recovery Successful! Please Log in");
           navigate("/login");
         });
       } catch (error) {
@@ -107,7 +97,7 @@ const Reset = () => {
   return (
     <Container>
       <Wrapper>
-        <Title>Recover Your ACCOUNT</Title>
+        <Title>Recover Your Account</Title>
         <Form>
           <Input
             placeholder="email"

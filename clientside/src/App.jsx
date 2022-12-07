@@ -39,7 +39,7 @@ function App() {
           element={user ? <Navigate to="/" /> : <Signup />}
         />
         <Route path="/auth/:confirmationCode" element={<WelcomePage />} exact />
-        <Route path="/auth/reset/:_id" element={<Reset />} exact />
+        <Route path="/auth/reset/:id" element={<Reset />} exact />
       </Routes>
     </div>
   );
