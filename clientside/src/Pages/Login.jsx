@@ -107,14 +107,9 @@ const Login = () => {
   const handleRecover = async () => {
     try {
       const credentials = { email: recoveryemail };
-      await axios
-        .post(`/api/auth/recover`, credentials)
-        .then((res) => {
-          toast.success("Check your email");
-        })
-        .catch((err) => {
-          toast.error(err);
-        });
+      await axios.post(`/api/auth/recover`, credentials).then(() => {
+        toast.success("Check your email");
+      });
     } catch (error) {
       toast.error("error occured");
     }
