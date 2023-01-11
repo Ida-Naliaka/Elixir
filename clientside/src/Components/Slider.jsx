@@ -38,7 +38,8 @@ const Arrow = styled.div`
   cursor: pointer;
   opacity: 0.5;
   z-index: 2;
-  ${mobile({ display: "none" })}
+  ${mobile({ width: "15px",
+    height: "25px" })}
 `;
 
 const Wrapper = styled.div`
@@ -125,7 +126,7 @@ const Slider = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       handleClick("right");
-    }, 10000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [handleClick]);

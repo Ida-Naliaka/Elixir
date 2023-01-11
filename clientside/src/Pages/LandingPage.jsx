@@ -11,10 +11,13 @@ import {
 } from "@material-ui/icons";
 import Slider from "../Components/Slider";
 import Footer from "../Components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { mobile } from "../responsive";
 import { blogs } from "../data";
 import Blog from "../Components/blogcard";
+import { Box, Typography, MenuItem, Menu } from "@material-ui/core";
+import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const NavContainer = styled.nav`
   height: 80px;
@@ -40,26 +43,32 @@ const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+  ${mobile({ marginBottom: "25px", marginTop: "0", marginLeft:"0", justifyContent:"space-between" })};
 `;
+const Hamburger= styled.div`
+display:none;
+${mobile({ padding:"5px",
+  display:"contents",
+  margin: "5px",
+  cursor: "pointer",
+marginLeft:0})}
+`
 
 const Logo = styled.h1`
   font-weight: bold;
   letter-spacing: 5px;
   font-family: "Satisfy", cursive;
   font-size: 45px;
-  ${mobile({ fontSize: "24px", letterSpacing: "0px" })}
+  ${mobile({ fontSize: "30px", letterSpacing: "2px",marginBottom:"10px", display: "flex",
+  justifyContent: "center" })}
 `;
 const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: "1%",
-  })}
+  ${mobile({ display:"none" })}
 `;
-const MenuItem = styled.div`
+const MenuComponent = styled.div`
   font-size: 18px;
   cursor: pointer;
   width: fit-content;
@@ -120,16 +129,61 @@ const BlogContainer = styled.div`
 
 const LandingPage = () => {
   const [blogItem, setBlogItem] = useState(blogs);
+  const navigate= useNavigate();
 
   return (
     <>
       <NavContainer>
         <NavWrapper>
           <Left>
+          <Hamburger>
+              <PopupState variant="popover" popupId="demo-popup-menu">
+                {(popupState) => (
+                  <React.Fragment>
+                    <MenuIcon
+                    style={{fontSize:"30px"}}
+                    {...bindTrigger(popupState)}
+                    />
+                    <Menu {...bindMenu(popupState)}>
+                      <MenuItem
+                        onClick={() => {
+                          popupState.close();
+                          navigate("/");
+                        }}>
+                        Home
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          popupState.close();
+                        }}>
+                       <a href="#about" style={{ textDecoration: "none", color: "black" }}>
+                        About
+                       </a> 
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          popupState.close();
+                          }}>
+                            <a href="#tutorials" style={{ textDecoration: "none", color: "black" }}>
+                              Our Blogs
+                            </a>
+                           
+                      </MenuItem>
+              <MenuItem onClick={() => {
+                navigate("/shop");
+                popupState.close();
+              }}>
+                Our Shop
+                </MenuItem>
+            </Menu>
+            </React.Fragment>
+                )}
+              </PopupState>
+            </Hamburger>
             <Logo>Elixir</Logo>
           </Left>
           <Right>
-            <MenuItem>Home</MenuItem>
+            <MenuComponent>Home</MenuComponent>
             <a href="#about" style={{ textDecoration: "none", color: "black" }}>
               <MenuItem>About</MenuItem>
             </a>

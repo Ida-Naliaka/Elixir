@@ -15,6 +15,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { logout } from "../redux/userRedux";
 import ReactTooltip from "react-tooltip";
+import { Box, Typography, MenuItem, Menu } from "@material-ui/core";
+import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Container = styled.div`
   height: 60px;
@@ -37,33 +40,43 @@ const Wrapper = styled.div`
   justify-content: space-between;
   ${mobile({ padding: "10px 0px", marginRight: "10%" })}
 `;
-
+const Hamburger= styled.div`
+display:none;
+${mobile({ padding:"5px",
+  display:"contents",
+  margin: "5px",
+  cursor: "pointer",
+marginLeft:0})}
+`
 const Left = styled.div`
   flex: 1;
   margin-left: 8%;
   display: flex;
   align-items: center;
-  ${mobile({ justifyContent: "center", marginBottom: "5px", marginTop: "0" })};
+  ${mobile({ marginBottom: "25px", marginTop: "0", marginLeft:"0", justifyContent:"space-between" })};
 `;
 
 const Logo = styled.h1`
   font-weight: bold;
   font-size: 44px;
   font-family: "Satisfy", cursive;
-  ${mobile({ fontSize: "28px" })}
+  ${mobile({fontSize: "30px",
+  display: "flex",
+  justifyContent: "center",
+  })}
 `;
 const Right = styled.div`
   display: flex;
   align-items: center;
 
-  ${mobile({ flex: 2, justifyContent: "center" })}
+  ${mobile({ display:"none" })}
 `;
 const RightItems = styled.div`
   display: flex;
   justify-content: space-around;
   ${mobile({ flex: 2, justifyContent: "center" })}
 `;
-const MenuItem = styled.div`
+const MenuComponent = styled.div`
   font-size: 20px;
   cursor: pointer;
   color: black;
@@ -113,26 +126,85 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
+        <Hamburger>
+              <PopupState variant="popover" popupId="demo-popup-menu">
+                {(popupState) => (
+                  <React.Fragment>
+                    <MenuIcon
+                    style={{fontSize:"30px"}}
+                    {...bindTrigger(popupState)}
+                    />
+                    <Menu {...bindMenu(popupState)}>
+                      <MenuItem
+                        onClick={() => {
+                          popupState.close();
+                          navigate("/");
+                        }}>
+                        Our Website
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          popupState.close();
+                          navigate("/products");
+                        }}>
+                        All Products
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          popupState.close();
+                          navigate("/cart")}}>
+                        <Badge badgeContent={quantity} color="primary">
+                          Cart<ShoppingCartOutlined /> 
+                          </Badge>
+                      </MenuItem>
+                      {user ? 
+                        <>
+              <MenuItem onClick={() => {
+                handleLogOut();
+                popupState.close();
+              }}>
+                Logout
+                </MenuItem>
+                  <MenuItem onClick={() => {
+                    handleDelete();
+                    popupState.close()}}>
+                    Delete
+                  </MenuItem>
+                  </> : 
+              <>
+              <MenuItem onClick={() => {navigate("/signup");
+              popupState.close()}}>
+                Register
+                </MenuItem>
+                <MenuItem onClick={() => {navigate("/login");popupState.close();}}>
+                  Sign In
+                  </MenuItem>
+                  </>}
+            </Menu>
+            </React.Fragment>
+                )}
+              </PopupState>
+            </Hamburger>
           <Logo>Elixir</Logo>
         </Left>
 
         <Right>
           <RightItems>
             <Link to="/" style={{ textDecoration: "none" }}>
-              <MenuItem>Our Website</MenuItem>
+              <MenuComponent>Our Website</MenuComponent>
             </Link>
             <Link to="/products" style={{ textDecoration: "none" }}>
-              <MenuItem>All Products</MenuItem>
+              <MenuComponent>All Products</MenuComponent>
             </Link>
             <Link to="/cart">
-              <MenuItem>
+              <MenuComponent>
                 <Badge badgeContent={quantity} color="primary">
                   <ShoppingCartOutlined />
                 </Badge>
-              </MenuItem>
+              </MenuComponent>
             </Link>
             {user ? (
-              <MenuItem>
+              <MenuComponent>
                 <Person
                   data-tip
                   data-for="logoutTip"
@@ -156,9 +228,9 @@ const Navbar = () => {
                     Delete{" "}
                   </SpanContainer>
                 </ReactTooltip>
-              </MenuItem>
+              </MenuComponent>
             ) : (
-              <MenuItem>
+              <MenuComponent>
                 <PersonAddOutlined
                   data-tip
                   data-for="registerTip"
@@ -173,16 +245,16 @@ const Navbar = () => {
                   <SpanContainer>
                     <Link to="/signup" style={{ textDecoration: "none" }}>
                       {" "}
-                      <MenuItem>REGISTER</MenuItem>{" "}
+                      <MenuComponent>REGISTER</MenuComponent>{" "}
                     </Link>
                   </SpanContainer>
                   <SpanContainer>
                     <Link to="/login" style={{ textDecoration: "none" }}>
-                      <MenuItem>SIGN IN</MenuItem>
+                      <MenuComponent>SIGN IN</MenuComponent>
                     </Link>
                   </SpanContainer>
                 </ReactTooltip>
-              </MenuItem>
+              </MenuComponent>
             )}
           </RightItems>
         </Right>
